@@ -27,6 +27,8 @@ const ball = {
 };
 
 let isGameRunning = false;
+let playerScore = 0;
+let aiScore = 0;
 
 function drawRect(x, y, width, height, color) {
     ctx.fillStyle = color;
@@ -87,10 +89,25 @@ function update() {
         }
     }
 
+    if (ball.x + ball.radius < 0) {
+        aiScore++;
+        resetBall();
+    } else if (ball.x - ball.radius > canvas.width) {
+        playerScore++;
+        resetBall();
+    }
+
+    if (playerScore >= 5 || aiScore >= 5) {
+        isGameRunning = false;
+        displayGameOverMessage();
+    }
+
     clearCanvas();
     drawRect(player.x, player.y, player.width, player.height, 'white');
     drawRect(ai.x, ai.y, ai.width, ai.height, 'white');
     drawCircle(ball.x, ball.y, ball.radius, 'white');
+    drawText(`Player: ${playerScore}`, 20, 20, 'white');
+    drawText(`AI: ${aiScore}`, canvas.width - 100, 20, 'white');
 
     requestAnimationFrame(update);
 }
@@ -126,6 +143,9 @@ document.addEventListener('keyup', (e) => {
 document.getElementById('startButton').addEventListener('click', () => {
     if (!isGameRunning) {
         isGameRunning = true;
+        playerScore = 0;
+        aiScore = 0;
+        document.getElementById('gameOverMessage').style.display = 'none';
         update();
     }
 });
