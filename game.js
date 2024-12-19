@@ -106,7 +106,12 @@ function update() {
     drawText(`Player: ${playerScore}`, 20, 20, 'white');
     drawText(`AI: ${aiScore}`, canvas.width - 100, 20, 'white');
 
-    requestAnimationFrame(update);
+    if (playerScore >= 5 || aiScore >= 5) {
+        isGameRunning = false;
+        displayGameOverMessage();
+    } else {
+        requestAnimationFrame(update);
+    }
 }
 
 function resetBall() {
@@ -114,6 +119,13 @@ function resetBall() {
     ball.y = canvas.height / 2;
     ball.dx = 4 * (Math.random() > 0.5 ? 1 : -1);
     ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
+}
+
+function displayGameOverMessage() {
+    const message = playerScore >= 5 ? 'Player Wins!' : 'AI Wins!';
+    const gameOverMessage = document.getElementById('gameOverMessage');
+    gameOverMessage.textContent = message;
+    gameOverMessage.style.display = 'block';
 }
 
 document.addEventListener('keydown', (e) => {
