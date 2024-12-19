@@ -1,2 +1,1 @@
-# pong-game
-A simple pong game player vs AI
+This repository is empty. Any task executed on it should be considered a new capability and needs to be created.
