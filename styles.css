@@ -34,20 +34,6 @@ body {
     background-color: #45a049;
 }
 
-#scoreBoard {
-    display: flex;
-    justify-content: space-between;
-    width: 200px;
-    margin-top: 20px;
-    color: white;
-    font-size: 20px;
-}
-
-#playerScore, #aiScore {
-    width: 100px;
-    text-align: center;
-}
-
 #gameOverMessage {
     position: absolute;
     top: 50%;

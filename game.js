@@ -26,8 +26,6 @@ const ball = {
     dy: 4 * (Math.random() > 0.5 ? 1 : -1)
 };
 
-let playerScore = 0;
-let aiScore = 0;
 let isGameRunning = false;
 
 function drawRect(x, y, width, height, color) {
@@ -67,16 +65,6 @@ function update() {
         ball.dy *= -1;
     }
 
-    if (ball.x + ball.radius > canvas.width) {
-        playerScore++;
-        resetBall();
-    }
-
-    if (ball.x - ball.radius < 0) {
-        aiScore++;
-        resetBall();
-    }
-
     if (ball.x - ball.radius < player.x + player.width && ball.y > player.y && ball.y < player.y + player.height) {
         ball.dx *= -1;
     }
@@ -103,15 +91,8 @@ function update() {
     drawRect(player.x, player.y, player.width, player.height, 'white');
     drawRect(ai.x, ai.y, ai.width, ai.height, 'white');
     drawCircle(ball.x, ball.y, ball.radius, 'white');
-    drawText(`Player: ${playerScore}`, 20, 20, 'white');
-    drawText(`AI: ${aiScore}`, canvas.width - 100, 20, 'white');
 
-    if (playerScore >= 5 || aiScore >= 5) {
-        isGameRunning = false;
-        displayGameOverMessage();
-    } else {
-        requestAnimationFrame(update);
-    }
+    requestAnimationFrame(update);
 }
 
 function resetBall() {
